@@ -1,0 +1,5 @@
+
+- hosts: '{{ frontend_host }}'
+  roles:
+    - docker
+    - ols_frontend

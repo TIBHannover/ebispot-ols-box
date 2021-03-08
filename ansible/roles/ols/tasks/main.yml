@@ -9,17 +9,17 @@
 
 - name: checkout OLS locally
   git:
-    repo: 'https://github.com/EBISPOT/OLS.git'
-    dest: '{{ ebispot_ols_base_dir }}'
+    repo: '{{ backend_ols_repo }}'
+    dest: '{{ backend_ols_base_dir }}'
     force: yes
-    version: '{{ ebispot_ols_version }}'
+    version: '{{ backend_ols_version }}'
 
 - name: Copy config files
   copy:
     src: '{{ item }}'
-    dest: '{{ ebispot_ols_base_dir }}/config/'
-  when: (ebispot_ols_custom_config_files is defined) and (ebispot_ols_custom_config_files != "") and (ebispot_ols_custom_config_files is not none)
-  with_items: '{{ ebispot_ols_custom_config_files }}'
+    dest: '{{ backend_ols_base_dir }}/config/'
+  when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
+  with_items: '{{ backend_ols_custom_config_files }}'
 
 - name: Create docker volumes
   command: 'docker volume create --name={{ item }}'
@@ -32,19 +32,19 @@
 - name: Run docker-compose up solr mongo
   command: 'docker-compose up -d solr mongo'
   args:
-    chdir: '{{ ebispot_ols_base_dir }}'
+    chdir: '{{ backend_ols_base_dir }}'
 
 - name: Run ols-config-importer
-  command: 'docker run --net=host -v {{ ebispot_ols_base_dir }}/config:/config ebispot/ols-config-importer:stable'
+  command: 'docker run --net=host -v {{ backend_ols_base_dir }}/config:/config ebispot/ols-config-importer:stable'
   args:
-    chdir: '{{ ebispot_ols_base_dir }}'
+    chdir: '{{ backend_ols_base_dir }}'
 
 - name: Run ols-indexer
   command: 'docker run --net=host -v ols-neo4j-data:/mnt/neo4j -v ols-downloads:/mnt/downloads ebispot/ols-indexer:stable'
   args:
-    chdir: '{{ ebispot_ols_base_dir }}'
+    chdir: '{{ backend_ols_base_dir }}'
 
-- name: Run docker-compose up ols-web
+- name: Run docker-compose up -d ols-web
   command: 'docker-compose up -d ols-web'
   args:
-    chdir: '{{ ebispot_ols_base_dir }}'
+    chdir: '{{ backend_ols_base_dir }}'

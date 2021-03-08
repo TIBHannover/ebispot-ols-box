@@ -1,0 +1,36 @@
+
+- name: Install ols packages
+  become: yes
+  package:
+    name: git
+    state: present
+  tags:
+    - root-task
+    
+- name: Creates base directory for frontend
+  become: yes
+  file:
+    path: '{{ frontend_ols_base_dir }}'
+    state: directory
+
+- name: checkout OLS locally
+  become: yes
+  git:
+    repo: '{{ frontend_ols_repo }}'
+    dest: '{{ frontend_ols_base_dir }}'
+    force: yes
+    version: '{{ frontend_ols_version }}'
+
+- name: Create docker volumes
+  become: yes
+  command: 'docker volume create --name={{ item }}'
+  with_items:
+    - ols-neo4j-data
+
+- name: Run docker-compose up -d ols-web
+  become: yes
+  command: 'docker-compose up -d ols-web'
+  args:
+    chdir: '{{ frontend_ols_base_dir }}'
+  environment:
+        MONGODB_IP: '{{ backend_mongodb_ip }}'
