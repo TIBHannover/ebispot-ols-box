@@ -1,11 +1,9 @@
-backend_host:
 backend_ols_repo: https://github.com/EBISPOT/OLS
 backend_ols_version: master # OLS version that should be installed
 backend_ols_installation_dir: '{{ ansible_env.HOME }}' # installation directory on the target system
 backend_ols_base_dir: '{{ backend_ols_installation_dir }}/OLS' # OLS directory on the target system
 backend_ols_custom_config_files:  # list of all (local) config files that should be copied into the OLS installation
 backend_mongodb_ip:
-frontend_host:
 frontend_ols_repo: https://github.com/EBISPOT/OLS
 frontend_ols_version: master # OLS version that should be installed
 frontend_ols_base_dir: 
