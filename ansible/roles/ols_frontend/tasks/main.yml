@@ -21,6 +21,13 @@
     force: yes
     version: '{{ frontend_ols_version }}'
 
+- name: Copy rebranding images
+  copy:
+    src: '{{ item }}'
+    dest: '{{ frontend_ols_base_dir }}/ols-web/src/main/resources/static/img/'
+  when: (frontend_rebranding_images is defined) and (frontend_rebranding_images != "") and (frontend_rebranding_images is not none)
+  with_items: '{{ frontend_rebranding_images }}'
+
 - name: Create docker volumes
   become: yes
   command: 'docker volume create --name={{ item }}'
@@ -34,3 +41,11 @@
     chdir: '{{ frontend_ols_base_dir }}'
   environment:
         MONGODB_IP: '{{ backend_mongodb_ip }}'
+        LOGO: '{{ frontend_logo }}'
+        TITLE: '{{ frontend_title }}'
+        SHORT_TITLE: '{{ frontend_short_title }}'
+        WEB: '{{ frontend_web }}'
+        TWITTER: '{{ frontend_twitter }}'
+        ORG: '{{ frontend_org }}'
+        BACKGROUND_IMAGE: '{{ frontend_background_image }}'
+        BACKGROUND_COLOR: '{{ frontend_background_color }}'

@@ -21,6 +21,13 @@
   when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
   with_items: '{{ backend_ols_custom_config_files }}'
 
+- name: Copy rebranding images
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/ols-web/src/main/resources/static/img/'
+  when: (backend_rebranding_images is defined) and (backend_rebranding_images != "") and (backend_rebranding_images is not none)
+  with_items: '{{ backend_rebranding_images }}'
+
 - name: Create docker volumes
   command: 'docker volume create --name={{ item }}'
   with_items:
@@ -48,3 +55,12 @@
   command: 'docker-compose up -d ols-web'
   args:
     chdir: '{{ backend_ols_base_dir }}'
+  environment:
+        LOGO: '{{ backend_logo }}'
+        TITLE: '{{ backend_title }}'
+        SHORT_TITLE: '{{ backend_short_title }}'
+        WEB: '{{ backend_web }}'
+        TWITTER: '{{ backend_twitter }}'
+        ORG: '{{ backend_org }}'
+        BACKGROUND_IMAGE: '{{ backend_background_image }}'
+        BACKGROUND_COLOR: '{{ backend_background_color }}'

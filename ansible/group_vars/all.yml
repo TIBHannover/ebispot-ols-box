@@ -1,10 +1,31 @@
-backend_ols_repo: https://github.com/EBISPOT/OLS
+backend_ols_repo: https://github.com/TIBHannover/OLS
 backend_ols_version: master # OLS version that should be installed
 backend_ols_installation_dir: '{{ ansible_env.HOME }}' # installation directory on the target system
 backend_ols_base_dir: '{{ backend_ols_installation_dir }}/OLS' # OLS directory on the target system
 backend_ols_custom_config_files:  # list of all (local) config files that should be copied into the OLS installation
+backend_rebranding_images:
 backend_mongodb_ip:
+backend_logo: /img/TIB_Logo_en.png
+backend_title: Terminology Service
+backend_short_title: TS
+backend_web: https://www.tib.eu/
+backend_twitter: https://twitter.com/tibhannover?lang=en
+backend_org: TIB
+backend_background_image: /img/background_trial.jpg
+backend_background_color: 0080FF
 frontend_ols_repo: https://github.com/EBISPOT/OLS
 frontend_ols_version: master # OLS version that should be installed
-frontend_ols_base_dir: 
+frontend_ols_base_dir:
+frontend_rebranding_images:
+frontend_logo: /img/TIB_Logo_en.png
+frontend_title: Terminology Service
+frontend_shorttitle: TS
+frontend_web: https://www.tib.eu/
+frontend_twitter: https://twitter.com/tibhannover?lang=en
+frontend_org: TIB
+frontend_background_image: /img/background_trial.jpg
+frontend_background_color: 0080FF 
 docker_user: '{{ ansible_user }}'
+
+
+
