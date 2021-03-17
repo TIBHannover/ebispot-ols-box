@@ -22,6 +22,7 @@
     version: '{{ frontend_ols_version }}'
 
 - name: Copy rebranding images
+  become: yes
   copy:
     src: '{{ item }}'
     dest: '{{ frontend_ols_base_dir }}/ols-web/src/main/resources/static/img/'
