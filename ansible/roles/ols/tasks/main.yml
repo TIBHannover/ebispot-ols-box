@@ -50,6 +50,7 @@
   command: 'docker run --net=host -v ols-neo4j-data:/mnt/neo4j -v ols-downloads:/mnt/downloads ebispot/ols-indexer:stable'
   args:
     chdir: '{{ backend_ols_base_dir }}'
+  ignore_errors: yes
 
 - name: Run docker-compose up -d ols-web
   command: 'docker-compose up -d ols-web'
