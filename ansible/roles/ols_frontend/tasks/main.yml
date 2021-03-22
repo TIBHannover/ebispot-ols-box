@@ -50,3 +50,4 @@
         ORG: '{{ frontend_org }}'
         BACKGROUND_IMAGE: '{{ frontend_background_image }}'
         BACKGROUND_COLOR: '{{ frontend_background_color }}'
+        SERVER_CONTEXT_PATH: '{{ frontend_server_context_path }}'

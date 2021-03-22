@@ -65,3 +65,4 @@
         ORG: '{{ backend_org }}'
         BACKGROUND_IMAGE: '{{ backend_background_image }}'
         BACKGROUND_COLOR: '{{ backend_background_color }}'
+        SERVER_CONTEXT_PATH: '{{ backend_server_context_path }}'
