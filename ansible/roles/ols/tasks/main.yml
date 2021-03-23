@@ -28,6 +28,12 @@
   when: (backend_rebranding_images is defined) and (backend_rebranding_images != "") and (backend_rebranding_images is not none)
   with_items: '{{ backend_rebranding_images }}'
 
+- name: Copy dockerfile of ols-web
+  copy:
+    src: '{{ backend_alternative_dockerfile }}'
+    dest: '{{ backend_ols_base_dir }}/ols-web/'
+  when: (backend_alternative_dockerfile is defined) and (backend_alternative_dockerfile != "") and (backend_alternative_dockerfile is not none)
+
 - name: Create docker volumes
   command: 'docker volume create --name={{ item }}'
   with_items:
@@ -65,4 +71,3 @@
         ORG: '{{ backend_org }}'
         BACKGROUND_IMAGE: '{{ backend_background_image }}'
         BACKGROUND_COLOR: '{{ backend_background_color }}'
-        SERVER_CONTEXT_PATH: '{{ backend_server_context_path }}'

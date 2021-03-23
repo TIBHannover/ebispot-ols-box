@@ -29,6 +29,12 @@
   when: (frontend_rebranding_images is defined) and (frontend_rebranding_images != "") and (frontend_rebranding_images is not none)
   with_items: '{{ frontend_rebranding_images }}'
 
+- name: Copy dockerfile of ols-web
+  copy:
+    src: '{{ frontend_alternative_dockerfile }}'
+    dest: '{{ frontend_ols_base_dir }}/ols-web/'
+  when: (frontend_alternative_dockerfile is defined) and (frontend_alternative_dockerfile != "") and (frontend_alternative_dockerfile is not none)
+
 - name: Create docker volumes
   become: yes
   command: 'docker volume create --name={{ item }}'
@@ -50,4 +56,3 @@
         ORG: '{{ frontend_org }}'
         BACKGROUND_IMAGE: '{{ frontend_background_image }}'
         BACKGROUND_COLOR: '{{ frontend_background_color }}'
-        SERVER_CONTEXT_PATH: '{{ frontend_server_context_path }}'

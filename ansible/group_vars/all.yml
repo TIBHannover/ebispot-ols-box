@@ -13,7 +13,7 @@ backend_twitter: https://twitter.com/tibhannover?lang=en
 backend_org: TIB
 backend_background_image: /img/background_trial.jpg
 backend_background_color: 0080FF
-backend_server_context_path: /ts4tib
+backend_alternative_dockerfile:
 frontend_ols_repo: https://github.com/EBISPOT/OLS
 frontend_ols_version: master # OLS version that should be installed
 frontend_ols_base_dir:
@@ -26,7 +26,7 @@ frontend_twitter: https://twitter.com/tibhannover?lang=en
 frontend_org: TIB
 frontend_background_image: /img/background_trial.jpg
 frontend_background_color: 0080FF 
-frontend_server_context_path: /ts4tib
+frontend_alternative_dockerfile:
 docker_user: '{{ ansible_user }}'
 
 
