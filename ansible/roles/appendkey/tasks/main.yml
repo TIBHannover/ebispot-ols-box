@@ -1,6 +1,6 @@
 - name: Copy public key
   copy:
-    src: './id_rsa'
+    src: './tmp/id_rsa'
     dest: '{{ ansible_env.HOME }}'
 
 - name: Append blank line to authorized keys

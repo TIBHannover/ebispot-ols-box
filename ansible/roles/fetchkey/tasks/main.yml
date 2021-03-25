@@ -7,4 +7,5 @@
 - name: Store public key
   ansible.builtin.fetch:
     src: '{{ backend_ols_installation_dir }}/.ssh/id_rsa'
-    dest: ./
+    dest: ./tmp/
+    flat: yes
