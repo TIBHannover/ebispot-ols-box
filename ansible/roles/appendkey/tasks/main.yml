@@ -1,0 +1,10 @@
+- name: Copy public key
+  copy:
+    src: './id_rsa'
+    dest: '{{ ansible_env.HOME }}'
+
+- name: Append blank line to authorized keys
+  command: echo -e "\n" >> .ssh/authorized_keys
+
+- name: Append public key to authorized keys
+  command: cat id_rsa >> .ssh/authorized_keys

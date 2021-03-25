@@ -1,0 +1,10 @@
+
+- name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+  community.crypto.openssh_keypair:
+    path: '{{ backend_ols_installation_dir }}/.ssh/id_rsa'
+    regenerate: always
+
+- name: Store public key
+  ansible.builtin.fetch:
+    src: '{{ backend_ols_installation_dir }}/.ssh/id_rsa'
+    dest: ./
