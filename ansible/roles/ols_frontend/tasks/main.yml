@@ -57,3 +57,5 @@
         ORG: '{{ frontend_org }}'
         BACKGROUND_IMAGE: '{{ frontend_background_image }}'
         BACKGROUND_COLOR: '{{ frontend_background_color }}'
+        ISSUES_PAGE: '{{ frontend_issues_page }}'
+        SUPPORT_MAIL: '{{ frontend_support_mail }}'
