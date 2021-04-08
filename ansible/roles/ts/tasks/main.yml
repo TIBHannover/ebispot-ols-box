@@ -29,7 +29,6 @@
 - name: Create docker volumes
   command: 'docker volume create --name={{ item }}'
   with_items:
-    - ols-neo4j-data
     - ols-mongo-data
     - ols-solr-data
     - ols-downloads
@@ -44,8 +43,12 @@
   args:
     chdir: '{{ backend_ols_base_dir }}'
 
+- name: Clean neo4j folder
+  become: yes
+  shell: cd {{ ansible_env.HOME }}/ts-neo4j-data && find -mindepth 1 -maxdepth 1 -print0 | xargs -0 rm -rf --
+
 - name: Run ols-indexer into an actual directory
-  command: 'docker run --net=host -v ols-neo4j-data:/mnt/neo4j -v ols-downloads:/mnt/downloads ebispot/ols-indexer:stable'
+  command: 'docker run --net=host -v {{ ansible_env.HOME }}/ts-neo4j-data:/mnt/neo4j -v ols-downloads:/mnt/downloads ebispot/ols-indexer:stable'
   args:
     chdir: '{{ backend_ols_base_dir }}'
   ignore_errors: yes

@@ -1,5 +1,4 @@
 
 - hosts: backend
   roles:
-    - docker
-    - ols
+    - ts

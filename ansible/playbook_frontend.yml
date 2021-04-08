@@ -1,5 +1,4 @@
 
 - hosts: frontend
   roles:
-    - docker
-    - ols_frontend
+    - ts_frontend

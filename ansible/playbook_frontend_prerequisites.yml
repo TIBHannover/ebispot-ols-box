@@ -1,0 +1,6 @@
+
+- hosts: frontend
+  roles:
+    - git
+    - docker
+    - nfs_client

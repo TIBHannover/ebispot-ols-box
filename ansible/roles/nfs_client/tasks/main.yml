@@ -1,0 +1,13 @@
+- name: Ensure NFS common is installed.
+  become: yes
+  apt: name=nfs-common state=present update_cache=yes
+- name: Create mount directory if it does not exist
+  become: yes
+  ansible.builtin.file:
+     path: {{ ansible_env.HOME }}/ts-neo4j-data
+     state: directory
+     mode: '0777'
+- name: mount -t nfs4 '{{ backend_mongodb_ip }}:{{ ansible_env.HOME }}/ts-neo4j-data' {{ ansible_env.HOME }}/ts-neo4j-data/
+  become: yes
+  command: mount -t nfs4 '{{ backend_mongodb_ip }}:{{ ansible_env.HOME }}/ts-neo4j-data' {{ ansible_env.HOME }}/ts-neo4j-data/
+
