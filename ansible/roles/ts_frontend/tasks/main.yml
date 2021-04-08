@@ -28,6 +28,12 @@
     dest: '{{ frontend_ols_base_dir }}/ols-web/'
   when: (frontend_alternative_dockerfile is defined) and (frontend_alternative_dockerfile != "") and (frontend_alternative_dockerfile is not none)
 
+- name: Copy dockercompose file
+  copy:
+    src: '{{ frontend_alternative_dockercomposefile }}'
+    dest: '{{ frontend_ols_base_dir }}/'
+  when: (frontend_alternative_dockercomposefile is defined) and (frontend_alternative_dockercomposefile != "") and (frontend_alternative_dockercomposefile is not none)
+
 - name: Create docker volumes
   become: yes
   command: 'docker volume create --name={{ item }}'
