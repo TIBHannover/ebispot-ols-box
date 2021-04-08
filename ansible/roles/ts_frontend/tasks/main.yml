@@ -35,6 +35,7 @@
   when: (frontend_alternative_dockercomposefile is defined) and (frontend_alternative_dockercomposefile != "") and (frontend_alternative_dockercomposefile is not none)
 
 - name: Recursively remove neo4j directory
+  become: yes
   ansible.builtin.file:
     path: '{{ ansible_env.HOME }}/ts-neo4j-local-data'
     state: absent
