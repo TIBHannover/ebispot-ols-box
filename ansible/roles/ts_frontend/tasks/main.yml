@@ -47,7 +47,7 @@
     mode: '0777'
 
 - name: copy nfs directory to local neo4j directory
-  shell: cp -R '{{ ansible_env.HOME }}/ts-neo4j-data/*' '{{ ansible_env.HOME }}/ts-neo4j-local-data/'
+  shell: cp -R {{ ansible_env.HOME }}/ts-neo4j-data/* {{ ansible_env.HOME }}/ts-neo4j-local-data/
 
 - name: Run docker-compose up -d ols-web
   become: yes
