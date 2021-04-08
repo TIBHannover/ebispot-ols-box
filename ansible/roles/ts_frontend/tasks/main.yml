@@ -36,17 +36,17 @@
 
 - name: Recursively remove neo4j directory
   ansible.builtin.file:
-    path: {{ ansible_env.HOME }}/ts-neo4j-local-data
+    path: '{{ ansible_env.HOME }}/ts-neo4j-local-data'
     state: absent
 
 - name: Create neo4j directory if it does not exist
   ansible.builtin.file:
-    path: {{ ansible_env.HOME }}/ts-neo4j-local-data
+    path: '{{ ansible_env.HOME }}/ts-neo4j-local-data'
     state: directory
     mode: '0777'
 
 - name: copy nfs directory to local neo4j directory
-  command: cp -R {{ ansible_env.HOME }}/ts-neo4j-data/* {{ ansible_env.HOME }}/ts-neo4j-data/
+  command: cp -R {{ ansible_env.HOME }}/ts-neo4j-data/* {{ ansible_env.HOME }}/ts-neo4j-local-data/
 
 - name: Run docker-compose up -d ols-web
   become: yes
