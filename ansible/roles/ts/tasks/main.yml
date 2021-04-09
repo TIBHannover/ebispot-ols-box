@@ -37,7 +37,6 @@
   with_items:
     - ols-mongo-data
     - ols-solr-data
-    - ols-downloads
 
 - name: Run docker-compose up solr mongo
   command: 'docker-compose up -d solr mongo'
