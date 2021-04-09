@@ -53,15 +53,23 @@
   become: yes
   shell: cd {{ ansible_env.HOME }}/ts-neo4j-data && find -mindepth 1 -maxdepth 1 -print0 | xargs -0 rm -rf --
 
-- name: Run ols-indexer into an actual directory
-  command: 'docker run --net=host -v {{ ansible_env.HOME }}/ts-neo4j-data:/mnt/neo4j -v ols-downloads:/mnt/downloads ebispot/ols-indexer:stable'
+- name: Clean downloads folder
+  become: yes
+  shell: cd {{ ansible_env.HOME }}/ts-downloads && find -mindepth 1 -maxdepth 1 -print0 | xargs -0 rm -rf --
+
+- name: Run ols-indexer into actual neo4j and downloads directories
+  command: 'docker run --net=host -v {{ ansible_env.HOME }}/ts-neo4j-data:/mnt/neo4j -v {{ ansible_env.HOME }}/ts-downloads:/mnt/downloads ebispot/ols-indexer:stable'
   args:
     chdir: '{{ backend_ols_base_dir }}'
   ignore_errors: yes
 
-- name: Grant full permissions to nfs data
+- name: Grant full permissions to neo4j data
   become: yes
   shell: chmod 777 -R {{ ansible_env.HOME }}/ts-neo4j-data/
+
+- name: Grant full permissions to downloads data
+  become: yes
+  shell: chmod 777 -R {{ ansible_env.HOME }}/ts-downloads/
 
 - name: Run docker-compose up -d ols-web
   command: 'docker-compose up -d ols-web'

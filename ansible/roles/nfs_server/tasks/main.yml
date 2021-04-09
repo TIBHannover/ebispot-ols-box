@@ -9,10 +9,16 @@
      src: '{{ backend_exports_file }}'
      dest: /etc/exports
      mode: '0777'
-- name: Create mount directory if it does not exist
+- name: Create neo4j mount directory if it does not exist
   become: yes
   ansible.builtin.file:
      path: '{{ ansible_env.HOME }}/ts-neo4j-data'
+     state: directory
+     mode: '0777'
+- name: Create downloads mount directory if it does not exist
+  become: yes
+  ansible.builtin.file:
+     path: '{{ ansible_env.HOME }}/ts-downloads'
      state: directory
      mode: '0777'
 - name: systemctl restart nfs-kernel-server

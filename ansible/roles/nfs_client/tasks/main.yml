@@ -11,3 +11,7 @@
   become: yes
   command: mount -t nfs4 -o rw,remount -force '{{ backend_mongodb_ip }}:{{ ansible_env.HOME }}/ts-neo4j-data' {{ ansible_env.HOME }}/ts-neo4j-data/
 
+- name: mount backend downloads directory
+  become: yes
+  command: mount -t nfs4 -o rw,remount -force '{{ backend_mongodb_ip }}:{{ ansible_env.HOME }}/ts-downloads' {{ ansible_env.HOME }}/ts-downloads/
+
