@@ -48,8 +48,8 @@
 
 - name: Synchronize neo4j directory for another embedded instance.
   ansible.posix.synchronize:
-    src: '{{ ansible_env.HOME }}/ts-neo4j-data'
-    dest: '{{ ansible_env.HOME }}/ts-neo4j-local-data'
+    src: '{{ ansible_env.HOME }}/ts-neo4j-data/'
+    dest: '{{ ansible_env.HOME }}/ts-neo4j-local-data/'
   delegate_to: "{{ inventory_hostname }}"
 
 - name: Run docker-compose up -d ols-web
