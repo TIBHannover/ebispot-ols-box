@@ -59,6 +59,10 @@
     chdir: '{{ backend_ols_base_dir }}'
   ignore_errors: yes
 
+- name: Grant full permissions to nfs data
+  become: yes
+  shell: chmod 777 -R {{ ansible_env.HOME }}/ts-neo4j-data/
+
 - name: Run docker-compose up -d ols-web
   command: 'docker-compose up -d ols-web'
   args:
