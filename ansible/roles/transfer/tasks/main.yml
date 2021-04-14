@@ -4,3 +4,9 @@
     "cd /from ; tar -cf - . " | \
     ssh {{ frontend_server_name }} \
     'docker run --rm -i -v ols-neo4j-data:/to alpine ash -c "cd /to ; tar -xpvf - "' 
+    
+- name: Transfer ols-downloads volume from current server to another one with ssh access
+  shell: yes yes | docker run --rm -v ols-downloads:/from alpine ash -c \
+    "cd /from ; tar -cf - . " | \
+    ssh {{ frontend_server_name }} \
+    'docker run --rm -i -v ols-downloads:/to alpine ash -c "cd /to ; tar -xpvf - "' 
