@@ -31,6 +31,11 @@ When the installation is complete (a few minutes, depending on the download spee
 ## Direct usage of Ansible
 Use playbook_frontend.yml for frontend server installation, playbook_backend.yml for standalone backend server installation and playbook.yml for cloned server installation.
 
-* For standalone installation, backend_host variable should be specified.
-* For decoupled installation, backend_host and frontend_host variables should be specified.
 * Frontend installation further requires specifying the installation directory, inventory file for root privileges on that directory and backend mongodb_ip.
+* It is also possible to customize branding variables, docker compose and docker files from group_vars.
+* A proper /etc/exports file should be provided as backend_exports_file including the lines below. The lines should be modified according to network:
+
+
+/home/user/ts-neo4j-data  X.X.X.X(rw,sync,no_root_squash,no_subtree_check)
+/home/user/ts-downloads  X.X.X.X(rw,sync,no_root_squash,no_subtree_check)
+
