@@ -33,6 +33,7 @@ frontend_background_color: 0080FF
 frontend_issues_page: https://github.com/TIBHannover/OLS/issues
 frontend_support_mail: information@tib.eu 
 frontend_alternative_dockerfile:
+frontend_alternative_configfile:
 frontend_alternative_dockercomposefile: 
 docker_user: '{{ ansible_user }}'
 

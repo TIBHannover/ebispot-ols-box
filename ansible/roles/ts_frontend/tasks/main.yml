@@ -28,6 +28,13 @@
     dest: '{{ frontend_ols_base_dir }}/ols-web/'
   when: (frontend_alternative_dockerfile is defined) and (frontend_alternative_dockerfile != "") and (frontend_alternative_dockerfile is not none)
 
+- name: Copy application.yml for ols-web
+  become: yes
+  copy:
+    src: '{{ frontend_alternative_configfile }}'
+    dest: '{{ frontend_ols_base_dir }}/ols-web/src/main/resources/'
+  when: (frontend_alternative_configfile is defined) and (frontend_alternative_configfile != "") and (frontend_alternative_configfile is not none)
+
 - name: Copy dockercompose file
   become: yes
   copy:
