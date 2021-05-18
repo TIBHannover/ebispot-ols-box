@@ -33,6 +33,7 @@ Use playbook_frontend.yml for frontend server installation, playbook_backend.yml
 
 * Frontend installation further requires specifying the installation directory, inventory file for root privileges on that directory and backend mongodb_ip.
 * It is also possible to customize branding variables, docker compose and docker files from group_vars.
+* It is assumed that the same user name will be used both on frontend and backend machines. 
 * A proper /etc/exports file should be provided as backend_exports_file including the lines below. The lines should be modified according to network:
 
 
