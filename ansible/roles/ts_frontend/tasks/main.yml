@@ -42,6 +42,12 @@
     dest: '{{ frontend_ols_base_dir }}/'
   when: (frontend_alternative_dockercomposefile is defined) and (frontend_alternative_dockercomposefile != "") and (frontend_alternative_dockercomposefile is not none)
 
+- name: Copy sitemap directory to the remote server
+  copy:
+    src:'{{ frontend_sitemap_directory }}'
+    dest:'{{ frontend_ols_base_dir }}/sitemap/'
+  when: (frontend_sitemap_directory is defined) and (frontend_sitemap_directory != "") and (frontend_sitemap_directory is not none)
+
 - name: Recursively remove neo4j directory
   become: yes
   ansible.builtin.file:

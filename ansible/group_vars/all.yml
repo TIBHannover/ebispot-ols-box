@@ -18,6 +18,7 @@ backend_support_mail: information@tib.eu
 backend_alternative_dockerfile:
 backend_alternative_dockercomposefile:
 backend_exports_file:
+backend_sitemap_directory:
 frontend_ols_repo: https://github.com/EBISPOT/OLS
 frontend_ols_version: master # OLS version that should be installed
 frontend_ols_base_dir:
@@ -35,6 +36,7 @@ frontend_support_mail: information@tib.eu
 frontend_alternative_dockerfile:
 frontend_alternative_configfile:
 frontend_alternative_dockercomposefile: 
+frontend_sitemap_directory:
 docker_user: '{{ ansible_user }}'
 
 
