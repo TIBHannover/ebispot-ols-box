@@ -45,7 +45,7 @@
 - name: Copy sitemap directory to the remote server
   become: yes
   copy:
-    src:'{{ frontend_sitemap_directory }}'
+    src:'{{ frontend_sitemap_directory }}/'
     dest:'{{ frontend_ols_base_dir }}/sitemap/'
   when: (frontend_sitemap_directory is defined) and (frontend_sitemap_directory != "") and (frontend_sitemap_directory is not none)
 
