@@ -38,11 +38,12 @@
     state: directory
     mode: '0644'
 
-- name: Copy sitemap directory to the remote server
+- name: Copy sitemap files
   copy:
-    src:'{{ backend_sitemap_directory }}'
-    dest:'{{ backend_ols_base_dir }}/sitemap/'
-  when: (backend_sitemap_directory is defined) and (backend_sitemap_directory != "") and (backend_sitemap_directory is not none)
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/sitemap/'
+  when: (backend_sitemap_files is defined) and (backend_sitemap_files != "") and (backend_sitemap_files is not none)
+  with_items: '{{ backend_sitemap_files }}'
 
 - name: Create docker volumes
   command: 'docker volume create --name={{ item }}'
