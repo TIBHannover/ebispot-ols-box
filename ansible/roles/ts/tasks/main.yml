@@ -32,9 +32,15 @@
     dest: '{{ backend_ols_base_dir }}/'
   when: (backend_alternative_dockercomposefile is defined) and (backend_alternative_dockercomposefile != "") and (backend_alternative_dockercomposefile is not none)
 
+- name: Create sitemap directory if it does not exist
+  ansible.builtin.file:
+    path: '{{ backend_ols_base_dir }}/sitemap/'
+    state: directory
+    mode: '0644'
+
 - name: Copy sitemap directory to the remote server
   copy:
-    src:'{{ backend_sitemap_directory }}/'
+    src:'{{ backend_sitemap_directory }}'
     dest:'{{ backend_ols_base_dir }}/sitemap/'
   when: (backend_sitemap_directory is defined) and (backend_sitemap_directory != "") and (backend_sitemap_directory is not none)
 
