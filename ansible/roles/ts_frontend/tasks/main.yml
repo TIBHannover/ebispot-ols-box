@@ -43,10 +43,11 @@
   when: (frontend_alternative_dockercomposefile is defined) and (frontend_alternative_dockercomposefile != "") and (frontend_alternative_dockercomposefile is not none)
 
 - name: Create sitemap directory if it does not exist
+  become: yes
   ansible.builtin.file:
     path: '{{ frontend_ols_base_dir }}/sitemap/'
     state: directory
-    mode: '0644'
+    mode: '0777'
 
 - name: Copy sitemap files
   become: yes
