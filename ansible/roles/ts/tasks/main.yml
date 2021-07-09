@@ -33,6 +33,7 @@
   when: (backend_alternative_dockercomposefile is defined) and (backend_alternative_dockercomposefile != "") and (backend_alternative_dockercomposefile is not none)
 
 - name: Create sitemap directory if it does not exist
+  become: yes
   ansible.builtin.file:
     path: '{{ backend_ols_base_dir }}/sitemap/'
     state: directory
