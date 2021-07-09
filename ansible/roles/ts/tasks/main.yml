@@ -37,7 +37,7 @@
   ansible.builtin.file:
     path: '{{ backend_ols_base_dir }}/sitemap/'
     state: directory
-    mode: '0666'
+    mode: '0777'
 
 - name: Copy sitemap files
   copy:
