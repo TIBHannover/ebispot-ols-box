@@ -79,6 +79,7 @@
   command: 'docker build -f ols-apps/ols-indexer/Dockerfile -t ols-indexer .'
   args:
     chdir: '{{ backend_ols_base_dir }}'
+  ignore_errors: yes
 
 - name: Run ols-indexer into actual neo4j and downloads directories
   command: 'docker run --net=host -v {{ ansible_env.HOME }}/ts-neo4j-data:/mnt/neo4j -v {{ ansible_env.HOME }}/ts-downloads:/mnt/downloads ols-indexer'
