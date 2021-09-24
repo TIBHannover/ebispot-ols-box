@@ -57,8 +57,13 @@
   args:
     chdir: '{{ backend_ols_base_dir }}'
 
+- name: Build ols-config-importer
+  command: 'docker build -f ols-apps/ols-config-importer/Dockerfile -t ols-config-importer .'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+
 - name: Run ols-config-importer
-  command: 'docker run --net=host -v {{ backend_ols_base_dir }}/config:/config ebispot/ols-config-importer:stable'
+  command: 'docker run --net=host -v {{ backend_ols_base_dir }}/config:/config ols-config-importer'
   args:
     chdir: '{{ backend_ols_base_dir }}'
 
@@ -70,8 +75,13 @@
   become: yes
   shell: cd {{ ansible_env.HOME }}/ts-downloads && find -mindepth 1 -maxdepth 1 -print0 | xargs -0 rm -rf --
 
+- name: Build ols-indexer
+  command: 'docker build -f ols-apps/ols-indexer/Dockerfile -t ols-indexer .'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+
 - name: Run ols-indexer into actual neo4j and downloads directories
-  command: 'docker run --net=host -v {{ ansible_env.HOME }}/ts-neo4j-data:/mnt/neo4j -v {{ ansible_env.HOME }}/ts-downloads:/mnt/downloads ebispot/ols-indexer:stable'
+  command: 'docker run --net=host -v {{ ansible_env.HOME }}/ts-neo4j-data:/mnt/neo4j -v {{ ansible_env.HOME }}/ts-downloads:/mnt/downloads ols-indexer'
   args:
     chdir: '{{ backend_ols_base_dir }}'
   ignore_errors: yes
