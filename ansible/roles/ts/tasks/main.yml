@@ -6,10 +6,17 @@
     force: yes
     version: '{{ backend_ols_version }}'
 
-- name: Copy config files
+- name: Copy config files to config directory
   copy:
     src: '{{ item }}'
     dest: '{{ backend_ols_base_dir }}/config/'
+  when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
+  with_items: '{{ backend_ols_custom_config_files }}'
+
+- name: Copy config files to root directory
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/'
   when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
   with_items: '{{ backend_ols_custom_config_files }}'
 
