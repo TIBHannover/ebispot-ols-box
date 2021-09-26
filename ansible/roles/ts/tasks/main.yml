@@ -20,6 +20,13 @@
   when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
   with_items: '{{ backend_ols_custom_config_files }}'
 
+- name: Copy config files to resources directory
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/ols-apps/ols-config-importer/src/main/resources/'
+  when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
+  with_items: '{{ backend_ols_custom_config_files }}'
+
 - name: Copy rebranding images
   copy:
     src: '{{ item }}'
