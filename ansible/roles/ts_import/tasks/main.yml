@@ -1,0 +1,118 @@
+
+- name: checkout OLS locally
+  git:
+    repo: '{{ backend_ols_repo }}'
+    dest: '{{ backend_ols_base_dir }}'
+    force: yes
+    version: '{{ backend_ols_version }}'
+
+- name: Copy config files to config directory
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/config/'
+  when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
+  with_items: '{{ backend_ols_custom_config_files }}'
+
+- name: Copy config files to root directory
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/'
+  when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
+  with_items: '{{ backend_ols_custom_config_files }}'
+
+- name: Copy config files to resources directory
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/ols-apps/ols-config-importer/src/main/resources/'
+  when: (backend_ols_custom_config_files is defined) and (backend_ols_custom_config_files != "") and (backend_ols_custom_config_files is not none)
+  with_items: '{{ backend_ols_custom_config_files }}'
+
+- name: Copy rebranding images
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/ols-web/src/main/resources/static/img/'
+  when: (backend_rebranding_images is defined) and (backend_rebranding_images != "") and (backend_rebranding_images is not none)
+  with_items: '{{ backend_rebranding_images }}'
+
+- name: Copy dockerfile of ols-web
+  copy:
+    src: '{{ backend_alternative_dockerfile }}'
+    dest: '{{ backend_ols_base_dir }}/ols-web/'
+  when: (backend_alternative_dockerfile is defined) and (backend_alternative_dockerfile != "") and (backend_alternative_dockerfile is not none)
+
+- name: Copy dockercompose file
+  copy:
+    src: '{{ backend_alternative_dockercomposefile }}'
+    dest: '{{ backend_ols_base_dir }}/'
+  when: (backend_alternative_dockercomposefile is defined) and (backend_alternative_dockercomposefile != "") and (backend_alternative_dockercomposefile is not none)
+
+- name: Create sitemap directory if it does not exist
+  become: yes
+  ansible.builtin.file:
+    path: '{{ backend_ols_base_dir }}/sitemap/'
+    state: directory
+    mode: '0777'
+
+- name: Copy sitemap files
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/sitemap/'
+  when: (backend_sitemap_files is defined) and (backend_sitemap_files != "") and (backend_sitemap_files is not none)
+  with_items: '{{ backend_sitemap_files }}'
+
+- name: Create docker volumes
+  command: 'docker volume create --name={{ item }}'
+  with_items:
+    - ols-mongo-data
+    - ols-solr-data
+
+- name: Run docker-compose up solr mongo
+  command: 'docker-compose up -d solr mongo'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+
+- name: Build ols-config-importer
+  command: 'docker build -f ols-apps/ols-config-importer/Dockerfile -t ols-config-importer .'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+
+- name: Run ols-config-importer
+  command: 'docker run --net=host -v {{ backend_ols_base_dir }}/config:/config ols-config-importer'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+
+- name: Build ols-indexer
+  command: 'docker build -f ols-apps/ols-indexer/Dockerfile -t ols-indexer .'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+  ignore_errors: yes
+
+- name: Run ols-indexer into actual neo4j and downloads directories
+  command: 'docker run --net=host -v {{ ansible_env.HOME }}/ts-neo4j-data:/mnt/neo4j -v {{ ansible_env.HOME }}/ts-downloads:/mnt/downloads ols-indexer'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+  ignore_errors: yes
+
+- name: Grant full permissions to neo4j data
+  become: yes
+  shell: chmod 777 -R {{ ansible_env.HOME }}/ts-neo4j-data/
+
+- name: Grant full permissions to downloads data
+  become: yes
+  shell: chmod 777 -R {{ ansible_env.HOME }}/ts-downloads/
+
+- name: Run docker-compose up -d ols-web
+  command: 'docker-compose up -d ols-web'
+  args:
+    chdir: '{{ backend_ols_base_dir }}'
+  environment:
+        LOGO: '{{ backend_logo }}'
+        TITLE: '{{ backend_title }}'
+        SHORT_TITLE: '{{ backend_short_title }}'
+        WEB: '{{ backend_web }}'
+        TWITTER: '{{ backend_twitter }}'
+        ORG: '{{ backend_org }}'
+        BACKGROUND_IMAGE: '{{ backend_background_image }}'
+        BACKGROUND_COLOR: '{{ backend_background_color }}'
+        ISSUES_PAGE: '{{ backend_issues_page }}'
+        SUPPORT_MAIL: '{{ backend_support_mail }}'
