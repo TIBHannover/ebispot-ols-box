@@ -1,0 +1,8 @@
+
+- name: Clean neo4j folder
+  become: yes
+  shell: cd {{ ansible_env.HOME }}/ts-neo4j-data && find -mindepth 1 -maxdepth 1 -print0 | xargs -0 rm -rf --
+
+- name: Clean downloads folder
+  become: yes
+  shell: cd {{ ansible_env.HOME }}/ts-downloads && find -mindepth 1 -maxdepth 1 -print0 | xargs -0 rm -rf --

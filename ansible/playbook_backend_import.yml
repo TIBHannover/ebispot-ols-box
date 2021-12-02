@@ -2,5 +2,4 @@
 - hosts: backend
   roles:
     - ts_copy
-    - ts_clean
     - ts_docker
