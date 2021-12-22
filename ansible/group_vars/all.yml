@@ -16,6 +16,8 @@ backend_background_color: 0080FF
 backend_issues_page: https://github.com/TIBHannover/OLS/issues
 backend_support_mail: information@tib.eu 
 backend_alternative_dockerfile:
+backend_indexer_dockerfile:
+backend_importer_dockerfile:
 backend_alternative_dockercomposefile:
 backend_exports_file:
 backend_sitemap_files:
