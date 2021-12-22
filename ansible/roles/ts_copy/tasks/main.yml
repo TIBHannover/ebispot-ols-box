@@ -34,6 +34,18 @@
   when: (backend_rebranding_images is defined) and (backend_rebranding_images != "") and (backend_rebranding_images is not none)
   with_items: '{{ backend_rebranding_images }}'
 
+- name: Copy dockerfile of ols-config-importer
+  copy:
+    src: '{{ backend_importer_dockerfile }}'
+    dest: '{{ backend_ols_base_dir }}/ols-apps/ols-config-importer/'
+  when: (backend_importer_dockerfile is defined) and (backend_importer_dockerfile != "") and (backend_importer_dockerfile is not none)
+
+- name: Copy dockerfile of ols-indexer
+  copy:
+    src: '{{ backend_indexer_dockerfile }}'
+    dest: '{{ backend_ols_base_dir }}/ols-apps/ols-indexer/'
+  when: (backend_indexer_dockerfile is defined) and (backend_indexer_dockerfile != "") and (backend_indexer_dockerfile is not none)
+
 - name: Copy dockerfile of ols-web
   copy:
     src: '{{ backend_alternative_dockerfile }}'
