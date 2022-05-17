@@ -31,6 +31,17 @@
   args:
     chdir: '{{ backend_ols_base_dir }}'
   ignore_errors: yes
+  async: 60
+  poll: 0
+  register: indexer_sleeper
+
+- name: 'check on ols-indexer task'
+  async_status:
+    jid: "{{ indexer_sleeper.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 299
+  delay: 60
 
 - name: Grant full permissions to neo4j data
   become: yes
