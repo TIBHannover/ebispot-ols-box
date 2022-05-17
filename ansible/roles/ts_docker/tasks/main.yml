@@ -37,10 +37,10 @@
 
 - name: 'check on ols-indexer task'
   async_status:
-    jid: "{{ indexer_sleeper.ansible_job_id }}"
+    jid: '{{ indexer_sleeper.ansible_job_id }}'
   register: job_result
   until: job_result.finished
-  retries: 299
+  retries: '{{ backend_indexer_retries }}'
   delay: 60
 
 - name: Grant full permissions to neo4j data
