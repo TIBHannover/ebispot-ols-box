@@ -71,3 +71,10 @@
     dest: '{{ backend_ols_base_dir }}/sitemap/'
   when: (backend_sitemap_files is defined) and (backend_sitemap_files != "") and (backend_sitemap_files is not none)
   with_items: '{{ backend_sitemap_files }}'
+
+- name: Copy token files to ols-web resources directory
+  copy:
+    src: '{{ item }}'
+    dest: '{{ backend_ols_base_dir }}/ols-web/src/main/resources/'
+  when: (backend_token_files is defined) and (backend_token_files != "") and (backend_token_files is not none)
+  with_items: '{{ backend_token_files }}'
