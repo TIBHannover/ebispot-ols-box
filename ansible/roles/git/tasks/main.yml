@@ -1,8 +1,7 @@
-- name: Install ols packages
+- name: Install git
   become: yes
-  package:
-    name: git
-    state: present
-  tags:
-    - root-task
+      apt:
+       name: git
+       state: present
+       update_cache: yes
 
