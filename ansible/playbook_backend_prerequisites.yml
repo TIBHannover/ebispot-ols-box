@@ -1,4 +1,6 @@
 
 - hosts: backend
   roles:
+    - git
+    - docker
     - nfs_server
