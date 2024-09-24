@@ -22,7 +22,7 @@ backend_alternative_dockercomposefile:
 backend_exports_file:
 backend_sitemap_files:
 backend_token_files:
-frontend_ols_repo: https://github.com/EBISPOT/OLS
+frontend_ols_repo: https://github.com/TIBHannover/TS
 frontend_ols_version: master # OLS version that should be installed
 frontend_ols_base_dir:
 frontend_rebranding_images:
