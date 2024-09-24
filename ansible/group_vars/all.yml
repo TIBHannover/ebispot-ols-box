@@ -1,4 +1,4 @@
-backend_ols_repo: https://github.com/TIBHannover/OLS
+backend_ols_repo: https://github.com/TIBHannover/TS
 backend_ols_version: master # OLS version that should be installed
 backend_ols_installation_dir: '{{ ansible_env.HOME }}' # installation directory on the target system
 backend_ols_base_dir: '{{ backend_ols_installation_dir }}/OLS' # OLS directory on the target system
@@ -13,7 +13,7 @@ backend_twitter: https://twitter.com/tibhannover?lang=en
 backend_org: TIB
 backend_background_image: /img/background_trial.jpg
 backend_background_color: 0080FF
-backend_issues_page: https://github.com/TIBHannover/OLS/issues
+backend_issues_page: https://github.com/TIBHannover/TS/issues
 backend_support_mail: information@tib.eu 
 backend_alternative_dockerfile:
 backend_indexer_dockerfile:
@@ -34,7 +34,7 @@ frontend_twitter: https://twitter.com/tibhannover?lang=en
 frontend_org: TIB
 frontend_background_image: /img/background_trial.jpg
 frontend_background_color: 0080FF
-frontend_issues_page: https://github.com/TIBHannover/OLS/issues
+frontend_issues_page: https://github.com/TIBHannover/TS/issues
 frontend_support_mail: information@tib.eu 
 frontend_alternative_dockerfile:
 frontend_alternative_configfile:
